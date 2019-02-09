@@ -1,5 +1,13 @@
 <?php require 'header.php'; ?>
 
+    <div class="container">
+
+    <!-- container -->
+
+
+    <div class="page-header text-center">
+        <h1>Edit Product</h1>
+    </div>
 
 <?php
 
@@ -54,16 +62,15 @@ if ($_POST) {
             echo "<div class='alert alert-danger text-center'>Unable to save record.</div>";
         }
 //        $last_product_id =  $this->db->lastInsertId('products_id');
-
 //        CONDITIONAL VALUE
         $rows = $stmt->rowCount();
-
 //        ADDED PRODUCT ID
         $last_product_id = $con->lastInsertId('products_id');
         if ($rows > 0) {
-
 //            GET LANGUAGE ID
-            $language_id = '1';
+// And build drop down selector
+
+            $language_id = '2';
 //            echo $rows;
 //            echo $last_product_id;
 
@@ -72,16 +79,14 @@ if ($_POST) {
             } else {
                 echo "<div class='alert alert-danger text-center'>Unable to save Description.</div>";
             }
-
         }
-
     } // show error
     catch (PDOException $exception) {
         die('ERROR: ' . $exception->getMessage());
     }
 }
 ?>
-    <div class="container">
+<!--    <div class="container">-->
         <div class="row">
             <div class="col-lg-3">
 
@@ -101,7 +106,6 @@ if ($_POST) {
 
             <!--DESCRIPTION SECTION-->
             <div class="col-lg-6">
-
                 <div class="form-group">
                     <label for="pr_name">Product Name</label>
                     <input type="text" name="name" class="form-control" value="Enter product name" id="pr_name">
@@ -116,8 +120,6 @@ if ($_POST) {
                     <textarea type="text" name="long_descr" rows="5"
                               class="form-control">Enter product Long description</textarea>
                 </div>
-
-
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary" name="save"> Save</button>
                     <a href='index.php' class='btn btn-danger'>Back to read products</a>
@@ -126,8 +128,6 @@ if ($_POST) {
             </div>
         </div>
     </div>
-
-
 <?php require 'footer.php';
 
 

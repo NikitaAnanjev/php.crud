@@ -1,22 +1,20 @@
 <?php require 'header.php'; ?>
-
-
 <?php
 // include database connection
 include 'config/database.php';
-
 // delete message prompt will be here
-
+$action = isset($_GET['action']) ? $_GET['action'] : "";
+// if it was redirected from delete.php
+if($action=='deleted'){
+    echo "<div class='alert alert-success'>Record was deleted.</div>";
+}
 // select all data from two tables
-
 $query = "SELECT * FROM products INNER JOIN products_description ON products.products_id = products_description.products_id  ORDER BY products.products_id DESC";
 $stmt = $con->prepare($query );
 $stmt->execute();
-
 // this is how to get number of rows returned
 $num = $stmt->rowCount();
 ?>
-
 <!--    check if more than 0 record found-->
 <?php  if ($num > 0):?>
     <table class="table ">
@@ -36,8 +34,6 @@ $num = $stmt->rowCount();
         <?php
         //                GET DATA INTO THE TABLE
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)):
-
-//        making $row['products_reference']; to just $products_reference;
         extract($row);
         ?>
             <tbody>
@@ -51,44 +47,36 @@ $num = $stmt->rowCount();
                 <td><?php echo $products_description_id; ?></td>
                 <td><?php echo $languages_id; ?></td>
                 <td>
-<!--                    read one record-->
+<!-- read one record-->
                     <?php
                     $id = $products_description_id;
                     echo "<a href='read_one.php?id={$id}' class='btn btn-info m-r-1em'>Read</a>";
-
                     // we will use this links on next part of this post
-                    echo "<a href='update.php?id={$id}' class='btn btn-primary m-r-1em'>Edit</a>";?>
-
-                    <?php echo "<a onclick='javascript:confirmationDelete($(this));return false;' class='btn btn-danger' href='index.php?delete=" . $table_row['products_id'] . "'>DELETE</a>"; ?>
-
+                    echo "<a href='update.php?id={$id}' class='btn btn-primary m-r-1em'>Edit</a>";
+                    echo "<a href='#' onclick='delete_product({$id});'  class='btn btn-danger'>Delete</a>";?>
                 </td>
             </tr>
             </tbody>
 
             <!-- SCRIPT TO CONFIRM DELETE ELEMENT-->
-
-            <script>
-                function confirmationDelete(anchor) {
-                    var conf = confirm('Are you sure want to delete this record?');
-                    if (conf)
-                        window.location = anchor.attr("href");
-                }
-            </script>
-
-
+    <script type='text/javascript'>
+        // confirm record deletion
+        function delete_product( id ){
+            var answer = confirm('Are you sure?');
+            if (answer){
+                // if user clicked ok,
+                // pass the id to delete.php and execute the delete query
+                window.location = 'delete.php?id=' + id;
+            }
+        }
+    </script>
         <?php endwhile;
-
         else:
             echo "<div class='alert alert-danger'>No records found.</div>";
-
         endif;?>
-
-
-
     </table>
+
 <?php // link to create record form
 echo "<a href='create.php' class='btn btn-primary m-b-1em'>Create New Product</a>"; ?>
-
-
 
 <?php require 'footer.php'; ?>

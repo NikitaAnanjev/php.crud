@@ -1,3 +1,4 @@
+
 <?php require 'header.php'; ?>
 
 
@@ -23,24 +24,18 @@
         $query = "SELECT * FROM products_description 
                   LEFT JOIN products 
                   ON  products.products_id =  products_description.products_id 
-                 
                   JOIN languages 
                   ON products_description.languages_id = languages.languages_id
                   WHERE products_description.products_description_id = ? LIMIT 0,1";
 
 
-        $langquery = "SELECT * FROM languages";
-
         $stmt = $con->prepare($query);
-//        $stmt2 = $con->prepare($langquery);
 
-        // this is the first question markV
+        // this is the first question mark
         $stmt->bindParam(1, $id);
-//        $stmt2->bindParam(1, $id);
 
         // execute our query
         $stmt->execute();
-//        $stmt2->execute();
 
         // store retrieved row to a variable
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -100,13 +95,12 @@
                         <td><?php echo htmlspecialchars($descriptionLong, ENT_QUOTES); ?></td>
                     </tr>
                     <tr>
-                        <td></td>
+                        <td>
+                        <?php    echo "<a href='update.php?id={$id}' class='btn btn-primary m-r-1em'>Edit</a>";?></td>
                         <td>
                             <a href='index.php' class='btn btn-danger'>Back to read products</a>
                         </td>
                     </tr>
-
-
                 </table>
             </div>
         </div>
