@@ -21,7 +21,6 @@ try {
                     products_price=:price
                     WHERE products_description_id = :id";
     $stmt = $con->prepare($query);
-
     $query2 = "SELECT * FROM products INNER JOIN products_description ON products.products_id = products_description.products_id WHERE products_description_id ='$id'";
     $stmt2 = $con->prepare($query2);
     $stmt2->execute();
