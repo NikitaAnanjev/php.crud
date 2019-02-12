@@ -7,43 +7,9 @@ $id = isset($_GET['id']) ? $_GET['id'] : die('ERROR: Record ID not found.');
 //include database connection
 include 'config/database.php';
 
-try {
 
-
-
-//      UPDATE MAIN INFORMATION
-    $query = "UPDATE products_description
-            JOIN products
-            ON products_description.products_id = products.products_id
-            SET products_description_name = :name,
-                    products_description_short_description = :short_descr,
-                    products_description_description = :long_descr,
-                    products_reference = :refer,
-                    products_price = :price
-                    WHERE products_description.languages_id = 1 AND products_id = :id";
-    $stmt = $con->prepare($query);
-    
-
-
-//      UPDATE ENGLISH DATA
-
-    $query_eng = "UPDATE products_description
-            SET products_description_name = :name_en,
-                    products_description_short_description = :short_descr_en,
-                    products_description_description = :long_descr_en
-                    WHERE products_description.languages_id = 2 AND products_id = :id";
-    $stmt_en = $con->prepare($query_eng);
-
-
-
-//      UPDATE NORWEGIAN
-
-    $query_nor = "UPDATE products_description
-            SET products_description_name = :name_no,
-                    products_description_short_description = :short_descr_no,
-                    products_description_description = :long_descr_no
-            WHERE products_id = :id  AND products_description.languages_id = 3";
-    $stmt_no = $con->prepare($query_nor);
+// READ DATA FROM DATABASE
+try{
 
 
 
@@ -85,6 +51,64 @@ try {
     }
     $price = $products_price;
     $reference = $products_reference;
+
+
+
+
+}
+// show error
+catch(PDOException $exception){
+    die('ERROR: ' . $exception->getMessage());
+}
+
+
+
+try {
+
+//    $query = "UPDATE products_description
+//            JOIN products
+//            ON products_description.products_id = products.products_id
+//            SET products_description_name = :name,
+//                    products_description_short_description = :short_descr,
+//                    products_description_description = :long_descr,
+//                    products_reference=:refer,
+//                    products_price=:price
+//                    WHERE products_description_id = :id";
+
+//      UPDATE MAIN INFORMATION
+    $query = "UPDATE products_description
+            JOIN products
+            ON products_description.products_id = products.products_id
+            SET products_description_name = :name,
+                    products_description_short_description = :short_descr,
+                    products_description_description = :long_descr,
+                    products_reference = :refer,
+                    products_price = :price
+                    WHERE languages_id = 1 AND products_id = :id";
+    $stmt = $con->prepare($query);
+
+
+
+//      UPDATE ENGLISH DATA
+
+    $query_eng = "UPDATE products_description
+            SET products_description_name = :name_en,
+                    products_description_short_description = :short_descr_en,
+                    products_description_description = :long_descr_en
+                    WHERE products_description.languages_id = 2 AND products_id = :id";
+    $stmt_en = $con->prepare($query_eng);
+
+
+
+//      UPDATE NORWEGIAN
+
+    $query_nor = "UPDATE products_description
+            SET products_description_name = :name_no,
+                    products_description_short_description = :short_descr_no,
+                    products_description_description = :long_descr_no
+            WHERE products_id = :id  AND products_description.languages_id = 3";
+    $stmt_no = $con->prepare($query_nor);
+
 
 
 
