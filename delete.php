@@ -8,11 +8,17 @@ try {
     $id=isset($_GET['id']) ? $_GET['id'] : die('ERROR: Record ID not found.');
 
     // delete query
+//    $query = "DELETE products_description, products
+//              FROM products_description
+//              INNER JOIN
+//              products ON products.products_id = products_description.products_id
+//              WHERE products_description_id = ?";
+
     $query = "DELETE products_description, products
-              FROM products_description 
+              FROM products_description
               INNER JOIN
               products ON products.products_id = products_description.products_id
-              WHERE products_description_id = ?";
+              WHERE products_description.products_id = ?";
 
     $stmt = $con->prepare($query);
     $stmt->bindParam(1, $id);
