@@ -1,6 +1,5 @@
 <?php require 'templates/header.php';
 
-
 // include database connection
 include 'config/database.php';
 
@@ -11,13 +10,13 @@ $action = isset($_GET['action']) ? $_GET['action'] : "";
 if ($action == 'deleted' && $num > 0) {
     echo "<div class='alert alert-success text-center'>Tillykke ! Optagelsen blev slettet.</div>";
 }
-
+// Danish Language as default language
 $language_id_shift = $_POST['select_language'];
 if ($language_id_shift == null) {
     $language_id_shift = '1';
 }
-// select all data from two tables
 
+// select all data from two tables
 $query2 = "SELECT * FROM languages";
 $stmt2 = $con->prepare($query2);
 $stmt2->execute();
@@ -28,7 +27,7 @@ if (isset($_POST['submit']) && $_POST['language'] != 0) {
 
 $select = '<form    method="POST" >';
 $select .= '<select name="select_language"  id="select_language">';
-
+//Drop Down Languages selector
 while ($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)):
     extract($row2);
     $select .= '<option value="' . $languages_id . '">' . $languages_name . '</option>';
