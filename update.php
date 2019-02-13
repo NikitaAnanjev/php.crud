@@ -7,10 +7,8 @@ $id = isset($_GET['id']) ? $_GET['id'] : die('ERROR: Record ID not found.');
 //include database connection
 include 'config/database.php';
 
-
 // READ DATA FROM DATABASE
 try {
-
     $query = "SELECT * FROM products_description INNER JOIN products ON products.products_id = products_description.products_id WHERE products_description.products_id = '$id'";
     $stmt = $con->prepare($query);
     $stmt->execute();
@@ -47,23 +45,17 @@ try {
             $lang_name_no =  'Norwegian';
         }
     }
-
-    // this is the first question mark
-//    $stmt->bindParam(1, $id);
     $price = $products_price;
     $reference = $products_reference;
-
-
 } // show error
 catch (PDOException $exception) {
     die('ERROR: ' . $exception->getMessage());
 }
+
+
 //UPDATE DATABASE
 if ($_POST) {
-//if (isset($_POST['update_btn'])) {
     try {
-
-
         $query = "UPDATE
     products_description
 JOIN products ON products_description.products_id = products.products_id
@@ -75,12 +67,9 @@ SET
     products.products_price =:price
 WHERE
     products_description.languages_id = '1' AND products_description.products_id = :id;";
-
-
         $stmt = $con->prepare($query);
 
 //      UPDATE ENGLISH DATA
-
         $query_eng = "UPDATE
     products_description
 SET
@@ -91,9 +80,7 @@ WHERE
     products_description.languages_id = '2' AND products_id=:id";
         $stmt_en = $con->prepare($query_eng);
 
-//
-//////      UPDATE NORWEGIAN
-////
+//      UPDATE NORWEGIAN
         $query_nor = "UPDATE
     products_description
 SET
@@ -102,7 +89,6 @@ SET
     products_description_description=:long_descr_no
 WHERE
     products_description.languages_id = '3' AND   products_description.products_id=:id";
-
 
         $stmt_no = $con->prepare($query_nor);
         $price = htmlspecialchars(strip_tags($_POST['price']));
@@ -139,13 +125,10 @@ WHERE
         $stmt_no->bindParam(':long_descr_no', $descriptionLong_no);
         $stmt_no->bindParam(':id', $id);
 
-
         $stmt->execute();
         $stmt_en->execute();
         $stmt_no->execute();
 
-
-//        if ($stmt->execute()) {
         if ($stmt->execute() && $stmt_en->execute() && $stmt_no->execute()) {
 
             echo "<div class='alert alert-success text-center'>Tillykke! Optagelsen blev opdateret.</div>";
@@ -169,8 +152,6 @@ WHERE
             <!--we have our html form here where new record information can be updated-->
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?id={$id}"); ?>" method="POST">
                 <div class="row">
-
-
                     <div class="col-4 main-data-section">
                         <table class="table table-hover table-bordered">
                             <h3>Oplysningen</h3>
@@ -192,12 +173,10 @@ WHERE
                     <div class="col-4 offset-4 text-right">
                         <a href="index.php" class="btn btn-danger"><?php echo $lable_back; ?></a>
                         <input type='submit' value='Opdater' class='btn btn-primary' name="update_btn"/>
-
                     </div>
 
                     <!--Dansk-->
                     <div class="col-4 dansk-data-section">
-
                             <h3> Dansk</h3>
                             <tr>
                                 <label><?php echo $lable_prod_name; ?></label>
@@ -248,8 +227,7 @@ WHERE
                                     </textarea>
                                 </div>
                             </tr>
-
-                    </div>
+                      </div>
 
                     <!--Norge -->
                     <div class="col-4 norwegian-data-section">
