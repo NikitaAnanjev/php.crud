@@ -3,7 +3,7 @@
 //DB ACCESS
 $host = '127.0.0.1:3306';
 $username = 'u912870331_rit';
-$password = '8K35qlFqNYlX';
+$password = '*** *** ***';
 $db_name = 'u912870331_rito';
 
 
