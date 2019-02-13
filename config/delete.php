@@ -4,9 +4,8 @@ include 'database.php';
 
 try {
     // get record ID
-    // isset() is a PHP function used to verify if a value is there or not
+    // Check value is there or not
     $id=isset($_GET['id']) ? $_GET['id'] : die('ERROR: Record ID not found.');
-
 
     $query = "DELETE products_description, products
               FROM products_description
@@ -25,7 +24,7 @@ try {
         die('Unable to delete record.');
     }
 }
-// show error
+// Display error
 catch(PDOException $exception){
     die('ERROR: ' . $exception->getMessage());
 }
