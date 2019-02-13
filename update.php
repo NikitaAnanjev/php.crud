@@ -112,16 +112,19 @@ WHERE
         $reference = htmlspecialchars(strip_tags($_POST['refer']));
 
         $name = htmlspecialchars(strip_tags($_POST['name']));
-        $description = htmlspecialchars(strip_tags($_POST['short_descr']));
-        $descriptionLong = htmlspecialchars(strip_tags($_POST['long_descr']));
+//        $description = htmlspecialchars(strip_tags($_POST['short_descr']));
+//        $descriptionLong = htmlspecialchars(strip_tags($_POST['long_descr']));
+
+        $description = $_POST['short_descr'];
+        $descriptionLong = $_POST['long_descr'];
 
         $name_eng = htmlspecialchars(strip_tags($_POST['name_english']));
-        $description_eng = htmlspecialchars(strip_tags($_POST['short_descr_english']));
-        $descriptionLong_eng = htmlspecialchars(strip_tags($_POST['long_descr_english']));
+        $description_eng = $_POST['short_descr_english'];
+        $descriptionLong_eng = $_POST['long_descr_english'];
 
         $name_no = htmlspecialchars(strip_tags($_POST['name_norw']));
-        $description_no = htmlspecialchars(strip_tags($_POST['short_descr_norw']));
-        $descriptionLong_no = htmlspecialchars(strip_tags($_POST['long_descr_norw']));
+        $description_no = $_POST['short_descr_norw'];
+        $descriptionLong_no = $_POST['long_descr_norw'];
 
         //Dansk
         $stmt->bindParam(':name', $name);
@@ -300,6 +303,33 @@ WHERE
                     </div>
 
                 </div>
+
+
+                <script>
+                    // Replace the <textarea id="editor1"> with a CKEditor
+                    // instance, using default configuration.
+
+
+                    CKEDITOR.replace( 'short_descr',{
+                        language: 'da',
+                        height: '100',
+                        uiColor: '#9AB8F3',
+                        toolbarCanCollapse: 'true'
+                    });
+
+                    CKEDITOR.replace( 'long_descr' ,{
+                        language: 'da',
+                        height: '100',
+                        uiColor: '#9AB8F3',
+                        toolbarCanCollapse: 'true'
+                    });
+
+                    CKEDITOR.replace( 'short_descr_norw');
+                    CKEDITOR.replace( 'long_descr_norw' );
+                    CKEDITOR.replace( 'short_descr_english');
+                    CKEDITOR.replace( 'long_descr_english' );
+
+                </script>
             </form>
         </div>
     </div>

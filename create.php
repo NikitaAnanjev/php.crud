@@ -32,9 +32,21 @@ if ($_POST) {
         $price = htmlspecialchars(strip_tags($_POST['price']));
 
         // Second posted values
+//        $name = htmlspecialchars(strip_tags($_POST['name']));
+//        $s_descr = htmlspecialchars(strip_tags($_POST['short_descr']));
+//        $l_descr = htmlspecialchars(strip_tags($_POST['long_descr']));
+
+
         $name = htmlspecialchars(strip_tags($_POST['name']));
-        $s_descr = htmlspecialchars(strip_tags($_POST['short_descr']));
-        $l_descr = htmlspecialchars(strip_tags($_POST['long_descr']));
+//        $s_descr = htmlspecialchars(strip_tags($_POST['short_descr']));
+//        $s_descr = htmlspecialchars($_POST['short_descr']);
+        $s_descr = $_POST['short_descr'];
+//        $l_descr = htmlspecialchars(strip_tags($_POST['long_descr']));
+//        $l_descr = htmlspecialchars(strip_tags($_POST['long_descr']));
+        $l_descr = $_POST['long_descr'];
+
+
+
 
         // bind the parameters
         $stmt->bindParam(':prod_reference', $reference);
@@ -87,7 +99,7 @@ if ($_POST) {
 ?>
 <!--    <div class="container">-->
         <div class="row">
-            <div class="col-lg-3">
+            <div class="col-lg-3 data-block">
                 <!--FIRST SECTION-->
                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
                     <div class="form-group">
@@ -104,25 +116,36 @@ if ($_POST) {
 
 
             <!--DESCRIPTION SECTION-->
-            <div class="col-lg-6">
+            <div class="col-lg-6 data-block">
                 <div class="form-group">
                     <label for="pr_name">Product Name</label>
                     <input type="text" name="name" class="form-control" value="Enter product name" id="pr_name">
                 </div>
-                <div class="form-group">
+                <div  class="form-group">
                     <label for="short_descr">Short Description</label>
-                    <textarea type="text" name="short_descr" rows="4"
+                    <textarea type="text" name="short_descr" id="short_descr" rows="4"
                               class="form-control">Enter product description</textarea>
                 </div>
                 <div class="form-group">
                     <label for="long_descr">Long Description</label>
-                    <textarea type="text" name="long_descr" rows="5"
+                    <textarea type="text" name="long_descr" id="long_descr" rows="5"
                               class="form-control">Enter product Long description</textarea>
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary" name="save"> Save</button>
                     <a href='index.php' class='btn btn-danger'>Back to read products</a>
                 </div>
+
+
+                <script>
+                    // Replace the <textarea id="editor1"> with a CKEditor
+                    // instance, using default configuration.
+                    CKEDITOR.replace( 'short_descr');
+                    CKEDITOR.replace( 'long_descr' );
+
+
+                </script>
+
                 </form>
             </div>
         </div>

@@ -18,114 +18,54 @@
 
     // read current record's data
     try {
-        // prepare select query
-//        $query = "SELECT * FROM products LEFT JOIN products_description ON products.products_id = products_description.products_id WHERE products.products_id = ? LIMIT 0,1 ";
-//        $query = "SELECT * FROM products_description
-//                  LEFT JOIN products
-//                  ON  products.products_id =  products_description.products_id
-//                  JOIN languages
-//                  ON products_description.languages_id = languages.languages_id
-//                  WHERE products_description.products_description_id = ? LIMIT 0,1";
 
-////
-//        $query = "SELECT * FROM products_description
-//                  LEFT JOIN products
-//                  ON  products.products_id =  products_description.products_id
-//                  JOIN languages
-//                  ON products_description.languages_id = languages.languages_id
-//                  WHERE products_description.products_id = ? LIMIT 0,1";
-
-
-        $language_key = '';
-        $language_key_dk = '1';
-        $language_key_en = '2';
-        $language_key_no = '3';
-
-        function languageSetup($language_key)
-        {
-
-            $query = "SELECT * FROM products_description
+        $query = "SELECT * FROM products_description
                   LEFT JOIN products
                   ON  products.products_id =  products_description.products_id
                   JOIN languages
                   ON products_description.languages_id = languages.languages_id
-                  WHERE products_description.products_id = ?
-                  AND products_description.languages_id = $language_key ";
-
-
-            return $query;
-        }
-
-
-        $query = languageSetup($language_key_dk);
-        $query2 = languageSetup($language_key_en);
-        $query3 = languageSetup($language_key_no);
-
-//        $query = "SELECT * FROM products_description
-//                  LEFT JOIN products
-//                  ON  products.products_id =  products_description.products_id
-//                  JOIN languages
-//                  ON products_description.languages_id = languages.languages_id
-//                  WHERE products_description.products_id = ?
-//                  AND products_description.languages_id = $language_key LIMIT 0,1";
+                  WHERE products_description.products_id = ?";
 
 
         $stmt = $con->prepare($query);
-        $stmt2 = $con->prepare($query2);
-        $stmt3 = $con->prepare($query3);
 
         // this is the first question mark
         $stmt->bindParam(1, $id);
-        $stmt2->bindParam(1, $id);
-        $stmt3->bindParam(1, $id);
+
 
         // execute our query
         $stmt->execute();
-        $stmt2->execute();
-        $stmt3->execute();
-
-        // store retrieved row to a variable
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        $row2 = $stmt2->fetch(PDO::FETCH_ASSOC);
-        $row3 = $stmt3->fetch(PDO::FETCH_ASSOC);
 
 
-//        $languages = $stmt2->fetch(PDO::FETCH_ASSOC);
 
-//
-//        extract($row);
-//        extract($row2);
-//        extract($row3);
-        // values to fill up our form
+while(  $row = $stmt->fetch(PDO::FETCH_ASSOC)){
 
-        $price = $row['products_price'];
-        $reference = $row['products_reference'];
-        $name = $row['products_description_name'];
+if($row['languages_id'] ==1){
+    $price = $row['products_price'];
+    $reference = $row['products_reference'];
+    $name = $row['products_description_name'];
+    $description = $row['products_description_short_description'];
+    $descriptionLong = $row['products_description_description'];
+    $language = $row['languages_name'];
+    $lang_id = $row['languages_id'];
+}
+    if($row['languages_id'] == 2){
+        $eng_name = $row['products_description_name'];
+        $eng_description = $row['products_description_short_description'];
+        $eng_descriptionLong = $row['products_description_description'];
+        $eng_language = $row['languages_name'];
+        $eng_lang_id = $row['languages_id'];
 
+    }
+    if($row['languages_id'] == 3){
+        $no_name = $row['products_description_name'];
+        $no_description = $row['products_description_short_description'];
+        $no_descriptionLong = $row['products_description_description'];
+        $no_language = $row['languages_name'];
+        $no_lang_id = $row['languages_id'];
+    }
 
-        $description = $row['products_description_short_description'];
-        $descriptionLong = $row['products_description_description'];
-        $language = $row['languages_name'];
-        $lang_id = $row['languages_id'];
-
-        $eng_name = $row2['products_description_name'];
-        $eng_description = $row2['products_description_short_description'];
-        $eng_descriptionLong = $row2['products_description_description'];
-        $eng_language = $row2['languages_name'];
-        $eng_lang_id = $row2['languages_id'];
-
-        $no_name = $row3['products_description_name'];
-        $no_description = $row3['products_description_short_description'];
-        $no_descriptionLong = $row3['products_description_description'];
-        $no_language = $row3['languages_name'];
-        $no_lang_id = $row3['languages_id'];
-
-//
-//        echo '<pre>';
-//        print_r($row);
-//
-//        echo '</pre>';
-
+}
 
     } // show error
     catch (PDOException $exception) {
@@ -140,7 +80,7 @@
     <div class="container">
         <div class="row">
 
-            <div class="col-12">
+            <div class="col-12 data-block">
                 <div class="row">
                     <div class="col-12">
 
@@ -150,8 +90,6 @@
 
                             <th>/</th>
                             <th><?php echo htmlspecialchars($language, ENT_QUOTES); ?> translation</th>
-
-
 
                             <th>
                                 <a href="#">
