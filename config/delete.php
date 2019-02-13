@@ -1,18 +1,12 @@
 <?php
 // include database connection
-include 'config/database.php';
+include 'database.php';
 
 try {
     // get record ID
     // isset() is a PHP function used to verify if a value is there or not
     $id=isset($_GET['id']) ? $_GET['id'] : die('ERROR: Record ID not found.');
 
-    // delete query
-//    $query = "DELETE products_description, products
-//              FROM products_description
-//              INNER JOIN
-//              products ON products.products_id = products_description.products_id
-//              WHERE products_description_id = ?";
 
     $query = "DELETE products_description, products
               FROM products_description
@@ -26,7 +20,7 @@ try {
     if($stmt->execute()){
         // redirect to read records page and
         // tell the user record was deleted
-        header('Location: index.php?action=deleted');
+        header('Location: ../index.php?action=deleted');
     }else{
         die('Unable to delete record.');
     }

@@ -1,11 +1,9 @@
-<?php require 'header.php'; ?>
-
-
+<?php require 'templates/header.php'; ?>
 <!-- container -->
 <div class="container">
 
-    <div class="page-header text-center">
-        <h1>Single Product</h1>
+    <div class="page-header text-center title-section">
+        <h1>Enkelt Produkt</h1>
     </div>
 
     <?php
@@ -26,12 +24,10 @@
                   ON products_description.languages_id = languages.languages_id
                   WHERE products_description.products_id = ?";
 
-
         $stmt = $con->prepare($query);
 
         // this is the first question mark
         $stmt->bindParam(1, $id);
-
 
         // execute our query
         $stmt->execute();
@@ -55,7 +51,6 @@ if($row['languages_id'] ==1){
         $eng_descriptionLong = $row['products_description_description'];
         $eng_language = $row['languages_name'];
         $eng_lang_id = $row['languages_id'];
-
     }
     if($row['languages_id'] == 3){
         $no_name = $row['products_description_name'];
@@ -64,7 +59,6 @@ if($row['languages_id'] ==1){
         $no_language = $row['languages_name'];
         $no_lang_id = $row['languages_id'];
     }
-
 }
 
     } // show error
@@ -72,116 +66,107 @@ if($row['languages_id'] ==1){
         die('ERROR: ' . $exception->getMessage());
     }
     ?>
-    <!-- HTML read one record table will be here -->
-
 
     <!--     LANGUAGES-->
-
     <div class="container">
         <div class="row">
-
             <div class="col-12 data-block">
                 <div class="row">
-                    <div class="col-12">
-
+                    <div class="col-4">
                         <!--we have our html table here where the record will be displayed-->
-                        <table class='table table-hover table-responsive table-bordered'>
-                            <thead>
-
-                            <th>/</th>
-                            <th><?php echo htmlspecialchars($language, ENT_QUOTES); ?> translation</th>
-
-                            <th>
-                                <a href="#">
-                                    <span> + </span>
-                                </a>
-                            </th>
-                            </thead>
-
+                        <table class='table table-hover table-bordered'>
+                            <h3>Produkt Oplysninger</h3>
                             <tr>
-                                <td>Reference #</td>
+                                <td><?php echo $lable_prod_reference;?></td>
                                 <td><?php echo htmlspecialchars($reference, ENT_QUOTES); ?></td>
                             </tr>
                             <tr>
-                                <td>Price</td>
+                                <td><?php echo $lable_prod_price;?></td>
                                 <td><?php echo htmlspecialchars($price, ENT_QUOTES); ?></td>
                             </tr>
 
                         </table>
                     </div>
+                    <div class="col-4 offset-4 text-right">
+                                <tr>
+                                    <td>
+                                        <a href='index.php' class='btn btn-danger'><?php echo $lable_back;?></a>
+                                    </td>
+                                    <td>
+                                        <?php echo "<a href='update.php?id={$id}' class='btn btn-primary m-r-1em'><i class='far fa-edit'></i> Redigere</a>"; ?>
+                                    </td>
+                                </tr>
+                        </div>
                     <div class="col-4">
-                        <h3><?php echo htmlspecialchars($language, ENT_QUOTES); ?> translation</h3>
-                        <table class='table table-hover table-responsive table-bordered'>
+                        <h3><?php echo htmlspecialchars($language, ENT_QUOTES); ?> oversættelse</h3>
+                        <table class='table table-hover table-bordered'>
                             <!--DK-->
                             <tr>
-                                <td>Name</td>
-                                <td><?php echo htmlspecialchars($name, ENT_QUOTES); ?></td>
+                                <td><?php echo $lable_prod_name;?></td>
+                                <td><?php echo $name; ?></td>
                             </tr>
                             <tr>
-                                <td>Product Description</td>
-                                <td><?php echo htmlspecialchars($description, ENT_QUOTES); ?></td>
+                                <td><?php echo $lable_prod_short_description;?></td>
+                                <td><?php echo $description; ?></td>
                             </tr>
                             <tr>
-                                <td>Long Description</td>
-                                <td><?php echo htmlspecialchars($descriptionLong, ENT_QUOTES); ?></td>
+                                <td><?php echo $lable_prod_long_description;?></td>
+                                <td><?php echo $descriptionLong; ?></td>
                             </tr>
-
                         </table>
                     </div>
                     <div class="col-4">
-                        <h3><?php echo htmlspecialchars($eng_language, ENT_QUOTES); ?> translation</h3>
-                        <table class='table table-hover table-responsive table-bordered'>
+                        <h3><?php echo $eng_language; ?> oversættelse</h3>
+                        <?php
+                        if (empty($eng_name)):
+
+                            echo 'GO to edit page to add description';
+
+                        else:
+                            ?>
+                        <table class='table table-hover table-bordered'>
                             <!--ENG-->
-
                             <tr>
-                                <td>Name</td>
-                                <td><?php echo htmlspecialchars($eng_name, ENT_QUOTES); ?></td>
+                                <td><?php echo $lable_prod_name;?></td>
+                                <td><?php echo $eng_name; ?></td>
                             </tr>
                             <tr>
-                                <td>Product Description</td>
-                                <td><?php echo htmlspecialchars($eng_description, ENT_QUOTES); ?></td>
+                                <td><?php echo $lable_prod_short_description;?></td>
+                                <td><?php echo $eng_description; ?></td>
                             </tr>
                             <tr>
-                                <td>Long Description</td>
-                                <td><?php echo htmlspecialchars($eng_descriptionLong, ENT_QUOTES); ?></td>
+                                <td><?php echo $lable_prod_long_description;?></td>
+                                <td><?php echo $eng_descriptionLong; ?></td>
                             </tr>
-
-                            <!--ENG END-->
                         </table>
+                        <?php endif;?>
                     </div>
+                    <!--ENG END-->
                     <div class="col-4">
-                        <h3><?php echo htmlspecialchars($no_language, ENT_QUOTES); ?> translation</h3>
-                        <table class='table table-hover table-responsive table-bordered'>
-
+                        <h3><?php echo htmlspecialchars($no_language, ENT_QUOTES); ?> oversættelse</h3>
+                        <?php
+                        if (empty($no_name)):
+                            echo 'GO to edit page to add description';
+                        else:
+                        ?>
+                        <table class='table table-hover table-bordered'>
                             <!--Norge-->
-
                             <tr>
-                                <td>Name</td>
-                                <td><?php echo htmlspecialchars($no_name, ENT_QUOTES); ?></td>
+                                <td><?php echo $lable_prod_name;?></td>
+                                <td><?php echo $no_name; ?></td>
                             </tr>
                             <tr>
-                                <td>Product Description</td>
-                                <td><?php echo htmlspecialchars($no_description, ENT_QUOTES); ?></td>
+                                <td><?php echo $lable_prod_short_description;?></td>
+                                <td><?php echo $no_description; ?></td>
                             </tr>
                             <tr>
-                                <td>Long Description</td>
-                                <td><?php echo htmlspecialchars($no_descriptionLong, ENT_QUOTES); ?></td>
+                                <td><?php echo $lable_prod_long_description;?></td>
+                                <td><?php echo $no_descriptionLong; ?></td>
                             </tr>
 
                             <!--No Norwegian END-->
                         </table>
-                    </div>
-                    <div class="col-12">
-                        <table class='table table-hover table-responsive table-bordered'>
-                            <tr>
-                                <td>
-                                    <?php echo "<a href='update.php?id={$id}' class='btn btn-primary m-r-1em'>Edit</a>"; ?></td>
-                                <td>
-                                    <a href='index.php' class='btn btn-danger'>Back to read products</a>
-                                </td>
-                            </tr>
-
-
+                        <?php endif;?>
                     </div>
                 </div>
             </div>
@@ -189,5 +174,4 @@ if($row['languages_id'] ==1){
     </div>
 </div> <!-- end .container -->
 
-
-<?php require 'footer.php'; ?>
+<?php require 'templates/footer.php'; ?>

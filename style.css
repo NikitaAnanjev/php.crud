@@ -1,3 +1,5 @@
+
+/*MAIN*/
 body {
     background-image: url("http://dack.dk/wp-content/uploads/2019/02/bg-rito-app.jpg");
     width: 100%;
@@ -5,19 +7,43 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+    background-attachment: fixed;
+}
+.container {
+    max-width: 1400px;
 }
 
-.main-data-section {
-    background-color: greenyellow;
+strong,p,h1,h2,h3,h4,h5,h6 {
+    color: #fff;
 }
-.dansk-data-section{
-background-color: skyblue;
+
+
+/*TITLE*/
+.title-section {
+  padding-top: 100px;
+  padding-bottom: 100px;
 }
-.english-data-section{
-    background-color: salmon;
+.title-section h1 {
+font-size: 50px;
 }
-.norwegian-data-section{
-    background-color: azure;
+
+label, h3 {
+    color: white;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.dansk-data-section h3, .english-data-section h3, .norwegian-data-section h3 {
+
+    color: #949494;
+}
+
+th {
+    font-size: 18px;
+}
+th ,td{
+    color: #fff;
 }
 
 .text-center h1{
@@ -25,7 +51,7 @@ background-color: skyblue;
 }
 
 .data-block {
-    background-color: azure;
-    padding:  0 15px 15px 15px;
+    background-color: rgba(74, 71, 71, 0.75);
+    padding: 15px;
     border-radius: 10px;
 }

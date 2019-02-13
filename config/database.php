@@ -18,3 +18,10 @@ catch(PDOException $exception){
     echo "Connection error: " . $exception->getMessage();
 }
 ?>
+
+<!--/COMMON VARIABLES-->
+<?php
+
+
+
+
