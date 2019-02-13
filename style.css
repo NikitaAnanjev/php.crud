@@ -28,7 +28,6 @@ font-size: 50px;
 }
 
 label, h3 {
-    color: white;
     font-size: 26px;
     font-weight: 700;
     letter-spacing: 2px;
@@ -46,9 +45,6 @@ th ,td{
     color: #fff;
 }
 
-.text-center h1{
-    color: azure;
-}
 
 .data-block {
     background-color: rgba(74, 71, 71, 0.75);
