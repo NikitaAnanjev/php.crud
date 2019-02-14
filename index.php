@@ -62,7 +62,7 @@ $num = $stmt->rowCount();
     <div class="container">
     <div class="row">
     <div class="col-12 data-block">
-    <table class="table table-hover">
+    <table class="table table-hover table-responsive">
     <thead>
     <tr>
         <th>ID</th>
