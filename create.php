@@ -1,12 +1,9 @@
 <?php require 'templates/header.php'; ?>
 
     <div class="container">
-
-    <!-- container -->
     <div class="page-header text-center title-section">
-        <h1>Rediger produkt</h1>
+        <h1>Opret ny produkt</h1>
     </div>
-
     <?php
     if ($_POST) {
 
@@ -20,17 +17,19 @@
         VALUES (:prod_id, :lang_id_dk, :prod_name, :prod_short_descr, :prod_descr_descr),
         (:prod_id, :lang_id_en,'','',''),
         (:prod_id, :lang_id_no,'','','')";
+
             // prepare query for execution
             $stmt = $con->prepare($query);
             $stmt2 = $con->prepare($query2);
+
             // posted values
             $reference = htmlspecialchars(strip_tags($_POST['refer']));
             $price = htmlspecialchars(strip_tags($_POST['price']));
             $name = htmlspecialchars(strip_tags($_POST['name']));
+            
             // For textEditor
             $s_descr = $_POST['short_descr'];
             $l_descr = $_POST['long_descr'];
-
 
             // bind the parameters
             $stmt->bindParam(':prod_reference', $reference);
@@ -103,7 +102,7 @@
                 </div>
                 <div class="form-group">
                     <label for="long_descr"><?php echo $lable_prod_long_description; ?></label>
-                    <textarea type="text" name="long_descr" id="long_descr" rows="5"
+                    <textarea type="text" name="long_descr" id="long_descr" rows="5"gi
                               class="form-control">Enter product Long description</textarea>
                 </div>
             </div>
@@ -116,8 +115,5 @@
             </form>
         </div>
     </div>
-
     <script type="text/javascript" src="js/texteditor.js"></script>
 <?php require 'templates/footer.php';
-
-
