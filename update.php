@@ -49,7 +49,7 @@ try {
     }
 
     // this is the first question mark
-//    $stmt->bindParam(1, $id);
+
     $price = $products_price;
     $reference = $products_reference;
 
@@ -91,9 +91,9 @@ WHERE
     products_description.languages_id = '2' AND products_id=:id";
         $stmt_en = $con->prepare($query_eng);
 
-//
-//////      UPDATE NORWEGIAN
-////
+
+//      UPDATE NORWEGIAN
+
         $query_nor = "UPDATE
     products_description
 SET
@@ -145,7 +145,6 @@ WHERE
         $stmt_no->execute();
 
 
-//        if ($stmt->execute()) {
         if ($stmt->execute() && $stmt_en->execute() && $stmt_no->execute()) {
 
             echo "<div class='alert alert-success text-center'>Tillykke! Optagelsen blev opdateret.</div>";
@@ -169,8 +168,6 @@ WHERE
             <!--we have our html form here where new record information can be updated-->
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?id={$id}"); ?>" method="POST">
                 <div class="row">
-
-
                     <div class="col-12 col-md-4 main-data-section">
                         <table class="table table-hover table-bordered">
                             <h3>Oplysningen</h3>
@@ -248,7 +245,6 @@ WHERE
                                     </textarea>
                                 </div>
                             </tr>
-
                     </div>
 
                     <!--Norge -->
