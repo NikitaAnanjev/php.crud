@@ -32,8 +32,6 @@
         // execute our query
         $stmt->execute();
 
-
-
 while(  $row = $stmt->fetch(PDO::FETCH_ASSOC)){
 
 if($row['languages_id'] ==1){
@@ -58,9 +56,8 @@ if($row['languages_id'] ==1){
         $no_descriptionLong = $row['products_description_description'];
         $no_language = $row['languages_name'];
         $no_lang_id = $row['languages_id'];
-    }
 }
-
+}
     } // show error
     catch (PDOException $exception) {
         die('ERROR: ' . $exception->getMessage());
@@ -72,7 +69,7 @@ if($row['languages_id'] ==1){
         <div class="row">
             <div class="col-12 data-block">
                 <div class="row">
-                    <div class="col-4">
+                    <div class="col-12 col-md-4">
                         <!--we have our html table here where the record will be displayed-->
                         <table class='table table-hover table-bordered'>
                             <h3>Produkt Oplysninger</h3>
@@ -84,20 +81,21 @@ if($row['languages_id'] ==1){
                                 <td><?php echo $lable_prod_price;?></td>
                                 <td><?php echo htmlspecialchars($price, ENT_QUOTES); ?></td>
                             </tr>
-
                         </table>
                     </div>
-                    <div class="col-4 offset-4 text-right">
-                                <tr>
-                                    <td>
-                                        <a href='index.php' class='btn btn-danger'><?php echo $lable_back;?></a>
-                                    </td>
-                                    <td>
-                                        <?php echo "<a href='update.php?id={$id}' class='btn btn-primary m-r-1em'><i class='far fa-edit'></i> Redigere</a>"; ?>
-                                    </td>
-                                </tr>
-                        </div>
-                    <div class="col-4">
+
+                    <div class="col-12 col-md-4 offset-md-4 text-right">
+                        <tr>
+                            <td>
+                                <a href='index.php' class='btn btn-danger'><?php echo $lable_back;?></a>
+                            </td>
+                            <td>
+                                <?php echo "<a href='update.php?id={$id}' class='btn btn-primary m-r-1em'><i class='far fa-edit'></i> Redigere</a>"; ?>
+                            </td>
+                        </tr>
+                    </div>
+
+                    <div class="col-12 col-md-4">
                         <h3><?php echo htmlspecialchars($language, ENT_QUOTES); ?> oversættelse</h3>
                         <table class='table table-hover table-bordered'>
                             <!--DK-->
@@ -115,7 +113,7 @@ if($row['languages_id'] ==1){
                             </tr>
                         </table>
                     </div>
-                    <div class="col-4">
+                    <div class="col-12 col-md-4">
                         <h3><?php echo $eng_language; ?> oversættelse</h3>
                         <?php
                         if (empty($eng_name)):
@@ -142,7 +140,7 @@ if($row['languages_id'] ==1){
                         <?php endif;?>
                     </div>
                     <!--ENG END-->
-                    <div class="col-4">
+                    <div class="col-12 col-md-4">
                         <h3><?php echo htmlspecialchars($no_language, ENT_QUOTES); ?> oversættelse</h3>
                         <?php
                         if (empty($no_name)):
@@ -163,7 +161,6 @@ if($row['languages_id'] ==1){
                                 <td><?php echo $lable_prod_long_description;?></td>
                                 <td><?php echo $no_descriptionLong; ?></td>
                             </tr>
-
                             <!--No Norwegian END-->
                         </table>
                         <?php endif;?>
